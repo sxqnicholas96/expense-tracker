@@ -2,16 +2,18 @@
 
 Simple expense tracker
 
-## Basic requirements
+## Core Requirements
+
+- A visualization of trend of expenses over time
+- An ordered table of expenses
+
+## Wishlist
 
 - Wallet Balance
 - Budgeting
 - CRUD of expenses
 - Time series list view of expenses
 - Categories of different types of expenses
-
-## Wishlist
-
 - Monthly/weekly/bi-weekly expense tracker
 - Graph view of expenses
 
