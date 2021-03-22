@@ -2,7 +2,7 @@ import React from "react"
 
 import styles from "./style.module.css"
 
-const MenuTop = () => {
+const MenuTop: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>

@@ -5,7 +5,7 @@ import MenuTop from "src/components/MenuTop"
 
 import "./App.css"
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <MenuTop />
