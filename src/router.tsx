@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 
 enum Routes {
   DASHBOARD = "/dashboard",
@@ -20,6 +20,9 @@ const AppRouter: React.FC = () => {
           path={Routes.TRANSACTIONS}
           component={() => <div> Transactions</div>}
         />
+        <Route exact path="/*">
+          <Redirect to={Routes.DASHBOARD} />
+        </Route>
       </Switch>
     </BrowserRouter>
   )
