@@ -17,6 +17,6 @@ Simple expense tracker
 
 ## Design Libraries Used
 
-[Argon Design System](https://demos.creative-tim.com/argon-design-system/index.html)
+[Antd Design](https://ant.design/components/overview/)
 
 [Chartist.js](https://gionkunz.github.io/chartist-js/index.html)
