@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <MenuTop />
+      <div className="Body"></div>
     </div>
   )
 }
