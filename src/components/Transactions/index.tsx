@@ -6,13 +6,13 @@ const columns = [
     title: "Date",
     dataIndex: "date",
     key: "date",
-    render: (text: string) => <a>{text}</a>,
+    render: (text: string) => <span>{text}</span>,
   },
   {
     title: "Nett Transaction Amount",
     dataIndex: "transactionAmount",
     key: "transactionAmount",
-    render: (amount: number) => <a>{amount}</a>,
+    render: (amount: number) => <span>{amount}</span>,
   },
 ]
 
