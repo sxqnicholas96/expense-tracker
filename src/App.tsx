@@ -1,7 +1,6 @@
 import React from "react"
 
 import AppRouter from "src/router"
-import MenuTop from "src/components/MenuTop"
 
 import "./App.css"
 
