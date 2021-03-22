@@ -1,7 +1,9 @@
 import React from "react"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 
-enum Routes {
+import MenuTop from "src/components/MenuTop"
+
+export enum Routes {
   DASHBOARD = "/dashboard",
   TRANSACTIONS = "/transactions",
 }
@@ -9,6 +11,7 @@ enum Routes {
 const AppRouter: React.FC = () => {
   return (
     <BrowserRouter>
+      <MenuTop />
       <Switch>
         <Route
           exact

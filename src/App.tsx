@@ -6,14 +6,7 @@ import MenuTop from "src/components/MenuTop"
 import "./App.css"
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <MenuTop />
-      <div className="Body">
-        <AppRouter />
-      </div>
-    </div>
-  )
+  return <AppRouter />
 }
 
 export default App
