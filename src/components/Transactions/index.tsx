@@ -1,7 +1,10 @@
 import React from "react"
 import { Table } from "antd"
+import { ColumnsType } from "antd/es/table"
 
-const columns = [
+import { Transaction } from "src/types"
+
+const columns: ColumnsType<Transaction> = [
   {
     title: "Date",
     dataIndex: "date",
