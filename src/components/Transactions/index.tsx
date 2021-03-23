@@ -26,7 +26,7 @@ const generateColumns = (removeTransaction: (id: string) => void) => {
         return moment(a.date).diff(b.date)
       },
       key: "date",
-      render: (date: Date) => <span>{date.toDateString()}</span>,
+      render: (date: Date) => <span>{new Date(date).toDateString()}</span>,
     },
     {
       title: "Nett Transaction Amount",
@@ -82,6 +82,9 @@ const Transactions: React.FC = () => {
       date: new Date(date),
       transactionAmount,
     })
+
+    store.set("transactions", newTransactionsArray)
+    store.set("balance", newBalance)
     setState({
       transactions: newTransactionsArray,
       balance: newBalance,
@@ -96,6 +99,8 @@ const Transactions: React.FC = () => {
     }
     const newTransactionsArray = _.filter(transactions, (t) => txn.id !== t.id)
     const newBalance = balance - txn.transactionAmount
+    store.set("transactions", newTransactionsArray)
+    store.set("balance", newBalance)
     setState({
       transactions: newTransactionsArray,
       balance: newBalance,
