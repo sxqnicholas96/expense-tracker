@@ -2,6 +2,10 @@
   padding: 50px;
 }
 
+.headerContainer {
+  padding: 0px 45px;
+}
+
 .tableContainer {
   padding: 50px;
   align-items: center;
@@ -13,4 +17,20 @@
 
 .withdrawStyle {
   color: red;
+}
+
+.modalContainer {
+  width: 500px;
+}
+
+.formContainer > .formField {
+  padding-bottom: 20px;
+}
+
+.submitContainer {
+  margin-bottom: 0;
+}
+
+.submitButton {
+  width: 100%;
 }
