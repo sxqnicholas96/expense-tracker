@@ -1,7 +1,8 @@
 import React, { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 import moment from "moment"
 import { Button, Table, Modal, Form, DatePicker, InputNumber } from "antd"
-import { PlusCircleOutlined } from "@ant-design/icons"
+import { PlusCircleOutlined, DeleteOutlined } from "@ant-design/icons"
 import { ColumnsType } from "antd/es/table"
 
 import store from "src/store"
@@ -35,6 +36,13 @@ const columns: ColumnsType<Transaction> = [
       return <span className={className}>{amount}</span>
     },
   },
+  {
+    width: "50px",
+    title: "Actions",
+    render: () => {
+      return <DeleteOutlined style={{ cursor: "pointer" }} />
+    },
+  },
 ]
 
 const Transactions: React.FC = () => {
@@ -57,6 +65,7 @@ const Transactions: React.FC = () => {
   const addTransaction = ({ date, transactionAmount }: Transaction) => {
     const newBalance = balance + transactionAmount
     const newTransactionsArray = transactions.concat({
+      id: uuidv4(),
       date: new Date(date),
       transactionAmount,
     })
@@ -64,6 +73,7 @@ const Transactions: React.FC = () => {
       transactions: newTransactionsArray,
       balance: newBalance,
     })
+    closeModal()
   }
 
   return (
