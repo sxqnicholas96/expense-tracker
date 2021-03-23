@@ -2,6 +2,10 @@
   padding: 50px;
 }
 
+.headerContainer {
+  padding: 0px 45px;
+}
+
 .tableContainer {
   padding: 50px;
   align-items: center;
