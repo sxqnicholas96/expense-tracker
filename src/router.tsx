@@ -2,6 +2,7 @@ import React from "react"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 
 import MenuTop from "src/components/MenuTop"
+import Transactions from "src/components/Transactions"
 
 export enum Routes {
   DASHBOARD = "/dashboard",
@@ -18,11 +19,7 @@ const AppRouter: React.FC = () => {
           path={Routes.DASHBOARD}
           component={() => <div> Dashboard</div>}
         />
-        <Route
-          exact
-          path={Routes.TRANSACTIONS}
-          component={() => <div> Transactions</div>}
-        />
+        <Route exact path={Routes.TRANSACTIONS} component={Transactions} />
         <Route exact path="/*">
           <Redirect to={Routes.DASHBOARD} />
         </Route>
