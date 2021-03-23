@@ -1,0 +1,16 @@
+.container {
+  padding: 50px;
+}
+
+.tableContainer {
+  padding: 50px;
+  align-items: center;
+}
+
+.depositStyle {
+  color: green;
+}
+
+.withdrawStyle {
+  color: red;
+}
