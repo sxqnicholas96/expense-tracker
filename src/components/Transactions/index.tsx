@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import _ from "lodash"
 import { v4 as uuidv4 } from "uuid"
 import moment from "moment"
 import { Button, Table, Modal, Form, DatePicker, InputNumber } from "antd"
@@ -15,35 +16,47 @@ interface State {
   balance: number
 }
 
-const columns: ColumnsType<Transaction> = [
-  {
-    title: "Date",
-    dataIndex: "date",
-    defaultSortOrder: "ascend",
-    sorter: (a, b) => {
-      return moment(a.date).diff(b.date)
+const generateColumns = (removeTransaction: (id: string) => void) => {
+  const columns: ColumnsType<Transaction> = [
+    {
+      title: "Date",
+      dataIndex: "date",
+      defaultSortOrder: "ascend",
+      sorter: (a, b) => {
+        return moment(a.date).diff(b.date)
+      },
+      key: "date",
+      render: (date: Date) => <span>{date.toDateString()}</span>,
     },
-    key: "date",
-    render: (date: Date) => <span>{date.toDateString()}</span>,
-  },
-  {
-    title: "Nett Transaction Amount",
-    dataIndex: "transactionAmount",
-    key: "transactionAmount",
-    render: (amount: number) => {
-      const className = amount >= 0 ? styles.depositStyle : styles.withdrawStyle
+    {
+      title: "Nett Transaction Amount",
+      dataIndex: "transactionAmount",
+      key: "transactionAmount",
+      render: (amount: number) => {
+        const className =
+          amount >= 0 ? styles.depositStyle : styles.withdrawStyle
 
-      return <span className={className}>{amount}</span>
+        return <span className={className}>{amount}</span>
+      },
     },
-  },
-  {
-    width: "50px",
-    title: "Actions",
-    render: () => {
-      return <DeleteOutlined style={{ cursor: "pointer" }} />
+    {
+      width: "50px",
+      dataIndex: "id",
+      key: "id",
+      title: "Actions",
+      render: (id: string) => {
+        return (
+          <DeleteOutlined
+            style={{ cursor: "pointer" }}
+            onClick={() => removeTransaction(id)}
+          />
+        )
+      },
     },
-  },
-]
+  ]
+
+  return columns
+}
 
 const Transactions: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -74,6 +87,19 @@ const Transactions: React.FC = () => {
       balance: newBalance,
     })
     closeModal()
+  }
+
+  const removeTransaction = (id: string) => {
+    const txn = _.find(transactions, (t) => id === t.id)
+    if (!txn) {
+      return
+    }
+    const newTransactionsArray = _.filter(transactions, (t) => txn.id !== t.id)
+    const newBalance = balance - txn.transactionAmount
+    setState({
+      transactions: newTransactionsArray,
+      balance: newBalance,
+    })
   }
 
   return (
@@ -126,7 +152,10 @@ const Transactions: React.FC = () => {
         </Button>
       </div>
       <div className={styles.tableContainer}>
-        <Table columns={columns} dataSource={transactions}></Table>
+        <Table
+          columns={generateColumns(removeTransaction)}
+          dataSource={transactions}
+        ></Table>
       </div>
     </div>
   )
