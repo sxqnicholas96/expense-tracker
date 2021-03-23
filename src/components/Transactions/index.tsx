@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Table, Modal } from "antd"
+import { Button, Table, Modal, Form, DatePicker, InputNumber } from "antd"
 import { PlusCircleOutlined } from "@ant-design/icons"
 import { ColumnsType } from "antd/es/table"
 
@@ -47,9 +47,49 @@ const Transactions: React.FC = () => {
         <Modal
           title="Add Transaction"
           visible={isModalVisible}
-          onOk={closeModal}
           onCancel={closeModal}
-        ></Modal>
+          footer={null}
+        >
+          <Form
+            className={styles.formContainer}
+            onFinish={(values) => {
+              console.log(values)
+            }}
+          >
+            <Form.Item
+              className={styles.formField}
+              label="Transaction Date"
+              name="date"
+              rules={[
+                { required: true, message: "Please input transaction date!" },
+              ]}
+            >
+              <DatePicker />
+            </Form.Item>
+            <Form.Item
+              className={styles.formField}
+              label="Transaction Amount"
+              name="transactionAmount"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input transaction amount!",
+                },
+              ]}
+            >
+              <InputNumber />
+            </Form.Item>
+            <Form.Item className={styles.submitContainer}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className={styles.submitButton}
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
         <Button onClick={showModal}>
           Add Transaction <PlusCircleOutlined />
         </Button>

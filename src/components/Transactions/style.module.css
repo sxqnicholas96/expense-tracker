@@ -18,3 +18,19 @@
 .withdrawStyle {
   color: red;
 }
+
+.modalContainer {
+  width: 500px;
+}
+
+.formContainer > .formField {
+  padding-bottom: 20px;
+}
+
+.submitContainer {
+  margin-bottom: 0;
+}
+
+.submitButton {
+  width: 100%;
+}
