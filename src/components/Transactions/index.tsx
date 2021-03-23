@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import moment from "moment"
 import { Button, Table, Modal, Form, DatePicker, InputNumber } from "antd"
 import { PlusCircleOutlined } from "@ant-design/icons"
 import { ColumnsType } from "antd/es/table"
@@ -8,10 +9,19 @@ import { Transaction } from "src/types"
 
 import styles from "./style.module.css"
 
+interface State {
+  transactions: Transaction[]
+  balance: number
+}
+
 const columns: ColumnsType<Transaction> = [
   {
     title: "Date",
     dataIndex: "date",
+    defaultSortOrder: "ascend",
+    sorter: (a, b) => {
+      return moment(a.date).diff(b.date)
+    },
     key: "date",
     render: (date: Date) => <span>{date.toDateString()}</span>,
   },
@@ -28,9 +38,13 @@ const columns: ColumnsType<Transaction> = [
 ]
 
 const Transactions: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const transactionData = store.get("transactions")
-  const balance = store.get("balance")
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const [state, setState] = useState<State>({
+    transactions: store.get("transactions"),
+    balance: store.get("balance"),
+  })
+
+  const { transactions, balance } = state
 
   const showModal = () => {
     setIsModalVisible(true)
@@ -38,6 +52,18 @@ const Transactions: React.FC = () => {
 
   const closeModal = () => {
     setIsModalVisible(false)
+  }
+
+  const addTransaction = ({ date, transactionAmount }: Transaction) => {
+    const newBalance = balance + transactionAmount
+    const newTransactionsArray = transactions.concat({
+      date: new Date(date),
+      transactionAmount,
+    })
+    setState({
+      transactions: newTransactionsArray,
+      balance: newBalance,
+    })
   }
 
   return (
@@ -50,12 +76,7 @@ const Transactions: React.FC = () => {
           onCancel={closeModal}
           footer={null}
         >
-          <Form
-            className={styles.formContainer}
-            onFinish={(values) => {
-              console.log(values)
-            }}
-          >
+          <Form className={styles.formContainer} onFinish={addTransaction}>
             <Form.Item
               className={styles.formField}
               label="Transaction Date"
@@ -95,7 +116,7 @@ const Transactions: React.FC = () => {
         </Button>
       </div>
       <div className={styles.tableContainer}>
-        <Table columns={columns} dataSource={transactionData}></Table>
+        <Table columns={columns} dataSource={transactions}></Table>
       </div>
     </div>
   )
